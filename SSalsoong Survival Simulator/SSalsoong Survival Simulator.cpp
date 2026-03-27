@@ -1,66 +1,64 @@
 ﻿#include "UserPlayer.h"
-#define clear std::cout << "\033[2J\033[H"
-
-StatDelta start
-{
-    /* health, condition */
-    0, 0,
-
-    /* responsibility, willpower, intelligence, sociability, luck, immersion */
-    0, /* 책임감 */
-    0, /* 의지력 */
-    0, /* 지능 */
-    0, /* 사회성 */
-    0, /* 운 */
-    1, /* 몰입도 */
-
-    /* money */
-    0
-};
-
-
-StatDelta Normal
-{
-    /* health, condition */
-    -5, -10,
-
-    /* responsibility, willpower, intelligence, sociability, luck, immersion */
-    0, /* 책임감 */
-    0, /* 의지력 */
-    0, /* 지능 */
-    0, /* 사회성 */
-    0, /* 운 */
-    1, /* 몰입도 */
-
-    /* money */
-    30000
-};
+#include "GameManager.h"
+#define con_clear std::cout << "\033[2J\033[H"
 
 int main()
 {
-    UserPlayer user(Gender::Female, PlayLevel::Easy);
+	GameManager game;
 
-    StatDelta prev = start;
-    int flag = 0;
-    while(flag != 99)
-    {
-        clear;
-        user.print_stat(prev);
-        std::cout << "99. 종료 " << std::endl;
-        std::cout << "입력: ";
-        std::cin >> flag;
-        std::cout << std::endl;
-        prev = Normal;
-        if (!user.turn(Normal))
-        {
-            clear;
-            user.print_stat(prev);
-            std::cout << "사망" << std::endl;
-            break;
-        }
-        
-        
-    }
+	game.process();
 
-    return 0;
+	return 0;
 }
+
+
+///* 메인 */
+//int main()
+//{
+//    vector<MenuItem> menu =
+//    {
+//        { "아무것도 안함", Mode::Idle },
+//        { "휴식", Mode::Rest },
+//        { "잠자기", Mode::Sleep },
+//        { "공부", Mode::Study },
+//        { "일", Mode::Work },
+//        { "운동", Mode::Exercise },
+//        { "사교", Mode::Social },
+//        { "종료", Mode::GameOver }
+//    };
+//
+//    UserPlayer user(Gender::Female, PlayLevel::Easy);
+//
+//
+//    while (true)
+//    {
+//        
+//        int selectedIndex = selectMenu(menu, user);
+//        Mode selectedMode = menu[selectedIndex].mode;
+//
+//        system("cls");
+//
+//        if (user.activity(selectedMode, getDeltaByMode(selectedMode)))
+//        {
+//            user.print_stat(getDeltaByMode(selectedMode));
+//            cout << getModeDescription(selectedMode) << "\n";
+//
+//
+//
+//            if (selectedMode == Mode::GameOver)
+//            {
+//                break;
+//            }
+//
+//            cout << "\n계속하려면 아무 키나 누르세요...";
+//            _getch();
+//        }
+//        else
+//        {
+//            cout << "\n 사망....";
+//            break;
+//        }
+//    }
+//
+//    return 0;
+//}

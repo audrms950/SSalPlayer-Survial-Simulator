@@ -1,32 +1,50 @@
 #pragma once
 #include "PlayerBase.h"
+
 class UserPlayer : public PlayerBase
 {
 public:
+
+
     UserPlayer(Gender gender, PlayLevel level) : gender(gender), level(level)
     {
         initStatBlock(); /* 스탯 초기화 */
         turnModifier = getDifficultyModifier(level); /* 가중치 적용 */
     }
-    void print_stat(StatDelta delta)
+    void print_stat(StatDelta delta);
+
+    bool activity(Mode mode, StatDelta delta)
     {
-        printStatWithDelta(stat, delta);
+        std::array<int, static_cast<int>(Mode::GameOver) + 1> cntOfActivity{};
+        history.push_back(mode);
+        return deltaApply(delta);
     }
 
-    bool turn(StatDelta delta)
+    bool deltaApply(StatDelta delta)
     {
         stat += delta;
 
         return stat.health > 0;
     }
 
-    /* 외부로 나가는 public은 로우 스네이크 케이스로 구성 */
-    void print_stat()
+    inline int getCount(Mode mode) const
     {
-        printStatBlock(stat, "cur state");
+        return cntOfActivity[static_cast<int>(mode)];
     }
 
+
+    inline PlayLevel get_level() const { return level; }
+    inline const std::vector<Mode>& get_history() const { return history; }
+
+    inline void setCertificate(bool is) { isCertificate = is; }
+
+
+private:  /* history */
+    
+    std::array<int, static_cast<int>(Mode::GameOver) + 1> cntOfActivity{};
+    std::vector<Mode> history;
 private:
+    bool isCertificate = false;
     Gender gender;
     PlayLevel level;
     TurnModifier turnModifier;

@@ -127,13 +127,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Event.cpp" />
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="SSalsoong Survival Simulator.cpp" />
     <ClCompile Include="UserPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="defined.h" />
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="GameManager.h" />
     <ClInclude Include="PlayerBase.h" />
     <ClInclude Include="SSalPlayerStat.h" />
+    <ClInclude Include="TrunEvent.h" />
     <ClInclude Include="UserPlayer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,5 +1,10 @@
 #include "UserPlayer.h"
 
+void UserPlayer::print_stat(StatDelta delta)
+{
+    printStatWithDelta(stat, delta);
+}
+
 void UserPlayer::setStatOfGender()
 {
     StatBlock adjustedStat = stat;
